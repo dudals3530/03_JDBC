@@ -1,0 +1,132 @@
+package edu.kh.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JDBCExample1 {
+
+	// 오 오랜만에 보는  이클립뜨 ..
+	public static void main(String[] args) {
+		
+		/*
+		 * JDBC (Java DataBase Connetivity)
+		 * 
+		 *  - Java에서 Db에 연결 할수 있게 해주는
+		 *   Java API (Java에서 제공하는 코드)
+		 * - > java.sql 패키지 에 존재함
+		 * 
+		 * 
+		 * 
+		 * 
+		 * */
+		
+		// java 코드를 이용해
+		// EMPLOYEE 테이블에서 
+		// 사번, 이름, 부서코드 ,직급코드 ,급여 , 입사일 조회후
+		// 이클립스 콘솔에 출력
+
+		// DB 에 접속하려면 연결정보를 입력해야함
+		// Driver 종류 , IP 번호 , port 번호 ,DBMS 의 종류 , EMPLOYEE 테이블의 계정(kh) , 비밀번호 
+		// 를 알아야함
+        
+		//  1. JDBC 객체 참조용 변수 선언 
+		
+		// java.sql.Connection
+		// 특정 DBMS 와 연결하기 위한 정보를 저장한 객체
+        // 즉 , DBeaver 에서 사용 하는 DB 연결과 같은 역할의 객체
+		// (DB 서버주소, 포트번호 , DB 이름 , 계정명, 비밀번호) 이런것들으 가지고잇는게
+		// Connection 이다.
+		Connection conn = null;
+		
+		// java.sql.Statement 
+		// - 1) SQL을 java -> DB 에전달
+		// - 2) DB 에서 SQL 수행한 결과를 반환 받아옴 (DB -> Java)
+		Statement stmt = null;
+		
+		// java.sql.ResultSet
+		// -SELECT 조회 결과를 저장하는 객체
+		ResultSet rs = null;
+		
+		/*2. DriverManager 객체를 이용해서 Connection 객체 생성하기*/
+		// java.sql.DriverManager
+		// - DB 연결정보와 JDBC 드라이버를 이용해서
+		// 원하는 DB 와 연결할 수 있는 Connection 객체를 생성하는 객체
+		
+	
+		// 2-1) Oracle JDBC Driver 객체를 메모리 로드 하기 
+		try {
+			Class.forName("oracle.jdbc.diver.OracleDriver");
+							// 이구문은 java 라이브러리 에있는게아니라
+			                // 참조된 라이브러리 (ojdbc 11) 에 있는 거임
+			//Class.forName("패키지명+클래스명");
+			//- 해당 클래스를 읽어 메모리에 적재 
+			//-> JVM 이 프로그램 동작에 사용 할 객체를  생성하는 구문
+			// .forname 은 Staice 메서드이기에  프로그램 실행될떄 쓰고 프로그램종료일때 종료시킨다
+		
+			// oracle.jdbc.driver.OracleDriver"
+			// - Oracle DBMS 연결 시 필요 한 코드가 담겨있는 클래스
+			// ojdbc 라이브러리 파일내에 존재함
+			// Oracle 에서 만들어서 제공하는 클래스
+			
+			//2-2) DB 연결 정보 작성
+			 String type = "jdbc:oracle:thin:@";// 드라이버의 종류
+			
+			String host = "localhost"; // DB 서버 컴퓨터의 IP 또는 도메인주소
+			                           // localhost == 현재컴퓨터
+			
+            String port = ":1521";// 프로그램 연결을 위 한 port 번호 
+            
+            String dbName = ":XE"; // DBMS 이름 (XE == eXpress Edition)
+			
+            //dbc:oracle:thin:@localhost:1521:XE
+            
+            String userName = "kh";     //사용자 계정
+            String password = "kh1234"; // 계정 비밀번호
+            
+            //2-3) DB 연결 정보와 DriverManager 를 이용해서 Connection 객체 생성
+            conn = DriverManager.getConnection(type+host+port+dbName,userName,password); 
+			
+            //Connection 객체가 잘 생성되었는지 확인(객체 주소 반환)
+            System.out.println(conn); //oracle.jdbc.driver.T4CConnection@6973bf95 
+            
+            
+			
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("해당 클래스를 찾을수 없습니다.");
+			e.printStackTrace();
+			
+		} catch(SQLException e) {
+			//SQLException : DB 연결과 관련된 모든 예외의 최상위 부모
+			e.printStackTrace();
+		
+		
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	}
+	
+}
