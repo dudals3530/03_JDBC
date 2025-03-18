@@ -23,15 +23,17 @@ public class JDBCExample6 {
 		Scanner sc = null;
 		
 		try {
-			
+			 //2) Connection 객체 생성 (DriverManager를 통해서)
+			  // 2-1  OracleDriver 메모리에 로드
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
+			//2-2) DB 연결 정보 작성
 			String str ="jdbc:oracle:thin:@localhost:1521:XE";
 			String user = "kh";
 			String pass = "kh1234";
 			
 			conn = DriverManager.getConnection(str,user,pass);
-			
+			conn.setAutoCommit(false);
 			
 			sc = new Scanner(System.in);
 			System.out.print("아이디 입력 : ");
@@ -51,14 +53,15 @@ public class JDBCExample6 {
 					""";
 					
 			
-			pre =conn.prepareStatement(sql);
+			pre =conn.prepareStatement(sql);  
+			                                
 			
 			pre.setString(1,name);
 			pre.setString(2, id);
 			pre.setString(3, pw);
 			
 			
-			conn.setAutoCommit(false);
+			
 			
 			int r =pre.executeUpdate();
 			

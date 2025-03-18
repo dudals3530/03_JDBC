@@ -29,6 +29,9 @@ SET USER_NAME= '김아무무'
 WHERE USER_ID = 'user03'     
 AND USER_PW = 'pass03';   
     
-
+-- 1번 예시
+INSERT INTO TB_USER VALUES(
+SEQ_USER_NO.NEXTVAL,'user04', 'pass04','유저4', DEFAULT);
+)
 
 COMMIT;
