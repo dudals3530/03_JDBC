@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>testdrivertestXML</comment>
+ <!-- 마크업 언어 주석 -->
+    <!--cntrl + shift + /  -->
+    <!--
+        DB 연결을 위한 정보들을 별도 파일에 작성하여
+        읽어오는 형식을 코드를변경.
+        
+        이유 1: GitHub에 DB 연결정보를 올리면 해킹하세요 ~ 라는 뜻 
+                보안적인 측면에서 코드를 직접적으로 보지 못하게 함
+
+		이유 2: 혹시라도 연결하는 DB 정보가 변경될 경우
+		        JAVA 코드가 아닌 읽어오는 파일의 내용을 수정하면 되기 때문에
+		        JAVA 코드 수정 X -> 추가 컴파일 필요 X 
+		        -> 개발 시간 단축!! -->
+		<!--entry 태크 (K:V 한쌍)  -->
+ <entry key ="driver">oracle.jdbc.driver.OracleDriver</entry>
+ <entry key ="url">jdbc:oracle:thin:@localhost:1521:XE</entry>
+ <entry key ="userName">kh</entry>
+ <entry key ="password">kh1234</entry>
+
+
+
+
+</properties>
+
+		        
+		       
