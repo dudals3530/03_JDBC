@@ -18,8 +18,8 @@
 		<!--entry 태크 (K:V 한쌍)  -->
  <entry key ="driver">oracle.jdbc.driver.OracleDriver</entry>
  <entry key ="url">jdbc:oracle:thin:@localhost:1521:XE</entry>
- <entry key ="userName">kh</entry>
- <entry key ="password">kh1234</entry>
+ <entry key ="userName">kym_sample</entry>
+ <entry key ="password">1234</entry>
 
 
 

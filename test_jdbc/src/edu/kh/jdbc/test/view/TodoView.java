@@ -45,13 +45,13 @@ public class TodoView {
 		switch(input) {
 				
 		case 1: signUp(); break;
-		case 2: login(); break;
-		case 3: selectTodo(); break;
-		case 4: addTodo(); break;
-		case 5: updateTodo(); break;
-		case 6: updateStatus(); break;
-		case 7: delecteTodo(); break;
-		case 8: logout();    break;
+		case 2:// login(); break;
+		case 3: //selectTodo(); break;
+		case 4: //addTodo(); break;
+		case 5: //updateTodo(); break;
+		case 6: //updateStatus(); break;
+		case 7: //delecteTodo(); break;
+		case 8: //logout();    break;
 		case 0: System.out.println("프로그램종료"); break;
 		default: System.out.println("1~8번만 눌러주세용");
 		
@@ -78,7 +78,7 @@ public class TodoView {
 	/**
 	 * 회원가입하는 메서드
 	 */
-	private void signUp() {
+	private void signUp() throws Exception {
 		System.out.println("\n----회원가입---\n");
 		
 		System.out.print("id 입력");
@@ -94,12 +94,20 @@ public class TodoView {
 		mem.setMemberName(inputName);
 		
 		int result = tus.signup(mem);
+		
+		if(result > 0) {
+			System.out.println(inputName+"님의 회원가입완료");
+		}else {
+			System.out.println("아이디 중복임. 회원가입실패");
+		}
+		
 	}
+		
+	
+	}
+	
 
-	
-	}
-	
-}
+
 			
 			
 
