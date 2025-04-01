@@ -1,15 +1,18 @@
 package edu.kh.jdbc.test.view;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import edu.kh.jdbc.test.dao.Member;
+import edu.kh.jdbc.test.dto.TestTodo;
 import edu.kh.jdbc.test.service.TodoService;
 
 public class TodoView {
 
 	private Scanner sc = new Scanner(System.in);
 	private TodoService tus = new TodoService();
+	private Member loginMem = null;
 
 	public void todomenu() {
 		/*
@@ -45,8 +48,8 @@ public class TodoView {
 		switch(input) {
 				
 		case 1: signUp(); break;
-		case 2:// login(); break;
-		case 3: //selectTodo(); break;
+		case 2: login(); break;
+		case 3: selectTodo(); break;
 		case 4: //addTodo(); break;
 		case 5: //updateTodo(); break;
 		case 6: //updateStatus(); break;
@@ -75,6 +78,69 @@ public class TodoView {
 		
 	}
 
+	
+	private void selectTodo() throws Exception {
+		if (loginMem == null ) {
+			System.out.println("로그인이 안되어있씁니다.");
+			return;
+		}
+		
+	 int result	=loginMem.getMemberNo();
+	 List<TestTodo> todoList = tus.selectTodo(result);
+	 
+	 if(todoList.isEmpty()) {
+		 System.out.println("존재하는 Todo가없습니다 . 추가해주세요.");
+		 return;
+		 
+	 }else {
+		 System.out.println(loginMem.getMemberName()+"님의 TODO는현재");
+		 for(TestTodo todo :todoList) {
+			 System.out.print(
+			 + todo.getTodoNo()+todo.getTitle()+todo.getTitle()
+			 +todo.getStatus()+todo.getSetDate()+"입니다.");
+		 }
+		 
+	 }
+	 
+	}
+
+
+	//2.
+	/**로그인 하는 메서드
+	 * @throws Exception 
+	 * 
+	 */
+	private void login() throws Exception {
+		
+		if( loginMem != null) {
+			System.out.println("현재로그인중입니다.");
+			return;
+		}
+		
+		System.out.print("아이디 입력 : ");
+		String inputId = sc.next();
+		
+		System.out.print("비밀번호 입력 : ");
+		String inputPw= sc.next();
+		
+		
+		Member mem = tus.login(inputId,inputPw);
+		
+		if(mem != null) {
+			
+			loginMem = mem;
+			 System.out.println(mem.getMemberName()+"님 로그인성공");
+		}else {
+			System.out.println("로그인실패");
+		}
+		  
+		
+		
+		
+	}
+
+	
+	//1.
 	/**
 	 * 회원가입하는 메서드
 	 */

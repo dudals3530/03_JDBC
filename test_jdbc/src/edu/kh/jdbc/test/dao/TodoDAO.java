@@ -1,13 +1,17 @@
 package edu.kh.jdbc.test.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.kh.jdbc.test.common.TestTemplate;
+import edu.kh.jdbc.test.dto.TestTodo;
 
 public class TodoDAO {
 
@@ -19,7 +23,7 @@ public class TodoDAO {
 	
 	
 	
-	public int signup(Connection conn, Member mem) throws Exception{
+	public int signup(Connection conn, Member mem) {
 		
 			//SQL 수행중 발생하는 예외를
 			// catch로 처리하지 않고, throws를 이용해서 호출부로 던져처리
@@ -53,6 +57,7 @@ public class TodoDAO {
 	
 		}catch (SQLException e) {
 			
+			
 			System.out.println("아이디 중복임!!");
 			
 			{
@@ -66,4 +71,91 @@ public class TodoDAO {
 		
 		
 	}
+
+
+
+
+	public Member login(Connection conn, String inputId, String inputPw) throws Exception {
+	
+		Member mem = null;
+		
+		try {
+			String sql = """
+					SELECT * FROM MEMBER
+					WHERE MEMBER_ID = ?
+					AND MEMBER_PW = ? 
+					""";
+			 
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			pstmt.setString(2, inputPw);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int no = rs.getInt("MEMBER_NO");
+				String name = rs.getString("MEMBER_NAME");
+				String id = rs.getString("MEMBER_ID");
+				String pw = rs.getString("MEMBER_PW");
+				
+				mem = new Member(no,name,id,pw);
+			}
+			
+		}finally {
+			TestTemplate.close(rs);
+			TestTemplate.close(pstmt);
+		}
+		
+		return mem;
+		
+	}
+
+
+
+
+	public List<TestTodo> selectTodo(Connection conn, int result) throws Exception {
+		
+		List<TestTodo> todoList = new ArrayList<>();
+		
+		try {
+			
+			String sql = """
+					SELECT MEMBER_NO, MEMBER_NAME, TODO_NO,TITLE, DETAILS, STATUS, SET_DATE
+                    FROM MEMBER
+                    JOIN TODOLIST USING (MEMBER_NO)
+                    WHERE MEMBER_NO = ?
+					
+					""";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, result);
+			
+			rs= pstmt.executeQuery();
+			
+			while (rs.next()) {
+                String memberNo = rs.getString("MEMBER_NO");
+                String name = rs.getString("MEMBER_NAME");
+                int todoNo = rs.getInt("TODO_NO");
+                String title = rs.getString("TITLE");
+                String details = rs.getString("DETAILS");
+                String status = rs.getString("STATUS");
+                Date date = rs.getDate("SET_DATE");
+
+                TestTodo todo = new TestTodo(memberNo, title, todoNo, details, date, status);
+
+                todoList.add(todo);
+            }
+			
+		}finally {
+			TestTemplate.close(rs);
+			TestTemplate.close(pstmt);
+			
+		}
+		
+		return todoList;
+	}
+
+
+
+
+	
 }

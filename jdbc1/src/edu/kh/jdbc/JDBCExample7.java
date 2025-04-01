@@ -129,7 +129,7 @@ public class JDBCExample7 {
 			
 		}catch (Exception e) {
 			// 아무것도 안적혀 있으니까 class not found exception이 출력이 안됬습니다...
-		}finally {
+		}finally { 
 			
 			try {
 				
