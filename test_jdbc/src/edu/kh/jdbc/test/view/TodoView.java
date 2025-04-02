@@ -50,7 +50,7 @@ public class TodoView {
 		case 1: signUp(); break;
 		case 2: login(); break;
 		case 3: selectTodo(); break;
-		case 4: //addTodo(); break;
+		case 4: addTodo(); break;
 		case 5: //updateTodo(); break;
 		case 6: //updateStatus(); break;
 		case 7: //delecteTodo(); break;
@@ -79,6 +79,29 @@ public class TodoView {
 	}
 
 	
+	/**
+	 * todoList를 추가하는 메서드
+	 */
+	private void addTodo() {
+		if (loginMem == null) {
+			System.out.println("로그인먼저해주세요");
+			return;
+		}
+		int memNo = loginMem.getMemberNo();
+		
+		System.out.print("제목을 지정해주세요");
+		String title = sc.next();
+		System.out.print("할일의 세부사항을입렵해주세요");
+		String details = sc.next();
+		
+		int todoList = tus.addTodo(memNo,title,details);
+		
+	}
+
+
+	/**todolist 전체조회
+	 * @throws Exception
+	 */
 	private void selectTodo() throws Exception {
 		if (loginMem == null ) {
 			System.out.println("로그인이 안되어있씁니다.");

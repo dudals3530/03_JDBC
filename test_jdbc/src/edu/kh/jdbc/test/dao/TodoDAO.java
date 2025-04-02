@@ -132,7 +132,7 @@ public class TodoDAO {
 			rs= pstmt.executeQuery();
 			
 			while (rs.next()) {
-                String memberNo = rs.getString("MEMBER_NO");
+                int memberNo = rs.getInt("MEMBER_NO");
                 String name = rs.getString("MEMBER_NAME");
                 int todoNo = rs.getInt("TODO_NO");
                 String title = rs.getString("TITLE");
@@ -152,6 +152,20 @@ public class TodoDAO {
 		}
 		
 		return todoList;
+	}
+
+
+
+
+	/**todoList 를 추가하는 메서드
+	 * @param conn
+	 * @param todoList
+	 * @return
+	 */
+	public int addTodo(Connection conn, TestTodo todoList) {
+		
+		
+		return 0;
 	}
 
 

@@ -50,6 +50,13 @@ public class TodoService {
 		return mem;
 		
 	}
+	
+	/** 전체조회하는 todoList
+	 * 
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
 	public List<TestTodo> selectTodo(int result) throws Exception {
 		
 		Connection conn = TestTemplate.getConnection();
@@ -70,6 +77,37 @@ public class TodoService {
 		return todoList;
 				
 	}
+	/**todoList를 추가하는 메서드
+	 * @param memNo
+	 * @param title
+	 * @param details
+	 * @return
+	 */
+	public int addTodo(int memNo, String title, String details) {
+		
+		Connection conn = TestTemplate.getConnection();
+		
+		TestTodo todoList = new TestTodo();
+		todoList.setMemberNo(memNo);
+		todoList.setTitle(title);
+		todoList.setDetails(details);
+		
+		int result = ttd.addTodo(conn,todoList);
+		
+		if (result > 0 ) {// insert 성공
+			TestTemplate.commit(conn);
+		
+		}else{
+			TestTemplate.rollback(conn);
+		}
+		
+		 TestTemplate.close(conn);
+		
+		return result;
+		
+		
+	}
+
 
 
 

@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class TestTodo {
 
-private String memberNo; 	
+private int memberNo; 	
 private String title; // 제목
 private int todoNo; //todo 숫자
 private String details;
