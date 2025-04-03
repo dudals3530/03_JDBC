@@ -64,17 +64,14 @@ public class TodoService {
 		List<TestTodo> todoList = null;
 
 		  todoList = ttd.selectTodo(conn,result);
-		if(!todoList.isEmpty()) {
-			TestTemplate.commit(conn);
-		}else {
-			TestTemplate.rollback(conn);
-		}
+		
+		  TestTemplate.close(conn);
 		  
-		 TestTemplate.close(conn);
+		  return todoList;
 		
 		
 		  
-		return todoList;
+		
 				
 	}
 	/**todoList를 추가하는 메서드
@@ -82,17 +79,15 @@ public class TodoService {
 	 * @param title
 	 * @param details
 	 * @return
+	 * @throws Exception 
 	 */
-	public int addTodo(int memNo, String title, String details) {
+	public int addTodo(int memNo, String title, String details) throws Exception {
 		
 		Connection conn = TestTemplate.getConnection();
 		
-		TestTodo todoList = new TestTodo();
-		todoList.setMemberNo(memNo);
-		todoList.setTitle(title);
-		todoList.setDetails(details);
 		
-		int result = ttd.addTodo(conn,todoList);
+		
+		int result = ttd.addTodo(memNo,title,details,conn);
 		
 		if (result > 0 ) {// insert 성공
 			TestTemplate.commit(conn);
@@ -107,6 +102,65 @@ public class TodoService {
 		
 		
 	}
+	/**5. todoList 수정하는 메서드
+	 * @param todoNum
+	 * @param updateTitle
+	 * @param updateDetails
+	 * @return
+	 * @throws Exception 
+	 */
+	public int updateTodo(int todoNum, String updateTitle, String updateDetails) throws Exception {
+		
+		Connection conn = TestTemplate.getConnection();
+		
+		int result = ttd.upadateTodo(todoNum,updateTitle,updateDetails,conn);
+		
+		if (result > 0 ) {// update 성공
+			
+			TestTemplate.commit(conn);
+		
+		}else{
+			TestTemplate.rollback(conn);
+		}
+		
+		 TestTemplate.close(conn);
+		
+		return result;
+	}
+	
+	/**완료여부 변경 메서드
+	 * @param todoNum
+	 * @param yn
+	 * @return
+	 * @throws Exception 
+	 */
+	public int updateStatus(int todoNum, String yn) throws Exception {
+		
+		Connection conn = TestTemplate.getConnection();
+		
+		int result = ttd.updateStatus(conn,todoNum,yn);
+		
+
+		if (result > 0 ) {// update 성공
+			
+			TestTemplate.commit(conn);
+		
+		}else{
+			TestTemplate.rollback(conn);
+		}
+		
+		 TestTemplate.close(conn);
+		
+		return result;
+		
+				
+	}
+	public int deleteTodo(int deleteNo) {
+		
+		
+		return 0;
+	}
+	
 
 
 

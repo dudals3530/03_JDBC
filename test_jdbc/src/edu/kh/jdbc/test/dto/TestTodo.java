@@ -24,8 +24,8 @@ private Date setDate; //작성일
 private String status; //완료여부	
 @Override
 public String toString() {
-	return " 제목 : " + title + " TODO의번호 : " + todoNo + "TODO세부적으로할일 : " + details
-			+ "지정날짜 : " + setDate + "현재완료상태 (y/n)" + status + "]";
+	return "TODO의번호 :"+todoNo +" /제목 : " + title + " /TODO세부적으로할일 : " + details
+			+ " /생성날짜 : " + setDate + " /현재완료상태 (y/n)" + status + "]";
 }
 	
 }
